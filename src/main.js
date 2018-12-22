@@ -7,6 +7,7 @@ import App, {ApolloClientToken} from 'fusion-apollo';
 import ApolloClientPlugin, { ApolloClientEndpointToken } from 'fusion-apollo-universal-client';
 import {GraphQLSchemaToken} from 'fusion-apollo';
 import {FetchToken} from 'fusion-tokens';
+import HelmetPlugin from 'fusion-plugin-react-helmet-async';
 import ApolloServer, { ApolloServerEndpointToken } from 'fusion-plugin-apollo-server';
 import {createMuiTheme} from '@material-ui/core/styles';
 import unfetch from 'unfetch';
@@ -40,6 +41,7 @@ export default () => {
   if (__NODE__) {
     app.register(FetchToken, unfetch);
   }
+  app.register(HelmetPlugin);
   app.register(Router);
 
   // apollo
