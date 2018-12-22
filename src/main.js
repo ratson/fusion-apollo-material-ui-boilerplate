@@ -9,9 +9,11 @@ import {GraphQLSchemaToken} from 'fusion-apollo';
 import {FetchToken} from 'fusion-tokens';
 import HelmetPlugin from 'fusion-plugin-react-helmet-async';
 import ApolloServer, { ApolloServerEndpointToken } from 'fusion-plugin-apollo-server';
+import I18n, {I18nToken, I18nLoaderToken, createI18nLoader} from 'fusion-plugin-i18n-react';
 import {createMuiTheme} from '@material-ui/core/styles';
 import unfetch from 'unfetch';
 import {makeExecutableSchema} from 'graphql-tools';
+
 
 import root from './root.js';
 
@@ -35,14 +37,14 @@ const resolvers = {
 
 export default () => {
   const app = new App(root);
-  if (__BROWSER__) {
-    app.register(FetchToken, window.fetch);
-  }
-  if (__NODE__) {
-    app.register(FetchToken, unfetch);
-  }
+  __BROWSER__ && app.register(FetchToken, window.fetch);
+  __NODE__ && app.register(FetchToken, unfetch);
   app.register(HelmetPlugin);
   app.register(Router);
+
+  // i18n
+  app.register(I18nToken, I18n);
+  __NODE__ && app.register(I18nLoaderToken, createI18nLoader());
 
   // apollo
   __NODE__ && app.register(ApolloServer);
