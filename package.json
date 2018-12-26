@@ -34,6 +34,7 @@
     "start": "fusion start"
   },
   "devDependencies": {
-    "enzyme": "^3.8.0"
+    "enzyme": "^3.8.0",
+    "flow-bin": "~0.87.0"
   }
 }
