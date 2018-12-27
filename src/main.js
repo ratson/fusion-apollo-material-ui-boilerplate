@@ -10,6 +10,7 @@ import {FetchToken} from 'fusion-tokens';
 import HelmetPlugin from 'fusion-plugin-react-helmet-async';
 import ApolloServer, { ApolloServerEndpointToken } from 'fusion-plugin-apollo-server';
 import I18n, {I18nToken, I18nLoaderToken, createI18nLoader} from 'fusion-plugin-i18n-react';
+import UniversalEvents, {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {createMuiTheme} from '@material-ui/core/styles';
 import unfetch from 'unfetch';
 import {makeExecutableSchema} from 'graphql-tools';
@@ -57,6 +58,7 @@ export default () => {
   __NODE__ && app.register(FetchToken, unfetch);
   app.register(HelmetPlugin);
   app.register(Router);
+  app.register(UniversalEventsToken, UniversalEvents);
 
   // i18n
   app.register(I18nToken, I18n);
