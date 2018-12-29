@@ -30,7 +30,7 @@
     "winston": "^3.1.0"
   },
   "scripts": {
-    "dev": "fusion dev",
+    "dev": "BROWSER=none fusion dev",
     "test": "fusion test",
     "build": "fusion build",
     "build-production": "fusion build --production",
