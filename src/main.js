@@ -2,6 +2,7 @@
 import 'isomorphic-fetch';
 import winston from 'winston';
 
+import {createPlugin} from 'fusion-core';
 import Router from 'fusion-plugin-react-router';
 import MuiThemeProvider, { MuiThemeProviderToken, MuiThemeToken } from 'fusion-plugin-material-ui';
 import App, {ApolloClientToken} from 'fusion-apollo';
@@ -13,6 +14,7 @@ import ApolloServer, { ApolloServerEndpointToken } from 'fusion-plugin-apollo-se
 import I18n, {I18nToken, I18nLoaderToken, createI18nLoader} from 'fusion-plugin-i18n-react';
 import UniversalLogger, { UniversalLoggerConfigToken } from 'fusion-plugin-universal-logger';
 import UniversalEvents, {UniversalEventsToken} from 'fusion-plugin-universal-events';
+import ErrorHandling, {ErrorHandlerToken} from 'fusion-plugin-error-handling';
 import {createMuiTheme} from '@material-ui/core/styles';
 import unfetch from 'unfetch';
 import {makeExecutableSchema} from 'graphql-tools';
@@ -70,6 +72,24 @@ export default () => {
   __NODE__ && app.register(UniversalLoggerConfigToken, {
     transports: [new winston.transports.Console()],
   });
+  if (__NODE__) {
+    const log = createPlugin({
+      provides() {
+        return (e, captureType) => {
+            if (captureType === 'browser') {
+              const {message, source, line, col, error} = e;
+              console.log({message, source, line, col, error});
+            } else if (captureType === 'server') {
+              console.log('UNCAUGHT EXCEPTION', e);
+            } else if (captureType === 'request') {
+              console.log('REQUEST ERROR');
+            }
+          }
+        }
+      });
+    app.register(ErrorHandlerToken, log);
+    app.register(ErrorHandling);
+  }
 
   // apollo
   __NODE__ && app.register(ApolloServer);

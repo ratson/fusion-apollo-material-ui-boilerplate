@@ -10,6 +10,7 @@
     "fusion-cli": "^1.13.1",
     "fusion-core": "^1.10.1",
     "fusion-plugin-apollo-server": "^1.1.2",
+    "fusion-plugin-error-handling": "^1.0.7",
     "fusion-plugin-i18n-react": "^1.2.1",
     "fusion-plugin-material-ui": "^0.1.3",
     "fusion-plugin-react-helmet-async": "^1.0.1",
