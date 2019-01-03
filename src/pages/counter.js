@@ -3,6 +3,7 @@ import React from 'react';
 import gql from "graphql-tag";
 import { Mutation, Query } from "react-apollo";
 import Button from '@material-ui/core/Button';
+import {Link} from 'fusion-plugin-react-router';
 
 const GET_COUNTER = gql`
   {
@@ -41,7 +42,12 @@ const Counter = () => (
       if (error) return `Error! ${error.message}`;
 
       return (
-        <IncrementButton>{data.counter.count}</IncrementButton>
+        <>
+          <IncrementButton>{data.counter.count}</IncrementButton>
+          <p>
+            <Link to="/">Home</Link>
+          </p>
+        </>
       );
     }}
   </Query>
