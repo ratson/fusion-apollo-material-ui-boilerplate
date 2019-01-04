@@ -87,6 +87,7 @@ export default () => {
           }
         }
       });
+    // $FlowFixMe: col is missing in Error
     app.register(ErrorHandlerToken, log);
     app.register(ErrorHandling);
   }

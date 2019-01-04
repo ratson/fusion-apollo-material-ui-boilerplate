@@ -26,7 +26,6 @@ const IncrementButton = ({ children }) => (
     {(increment, { data }) => (
       <Button variant="contained" color="primary" onClick={() => {
         increment(1);
-        console.log('as')
       }}>
       {JSON.stringify(data)}
         {children}
